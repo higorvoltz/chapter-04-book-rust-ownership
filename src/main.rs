@@ -59,6 +59,23 @@ fn main() {
 
   let reference_to_nothing = dangle();
 
+  // Slice Type: kind of reference, do not have ownership
+  let mut word = String::from("some word");
+  let w = first_world(&word);
+  println!("{}", w);
+  word.clear();
+
+  //A string slice is a reference to part of a String, and it looks like this:
+  let phrase = String::from("a some string");
+  let p = &phrase[0..5];
+  println!("{}", p);
+  let q = &phrase[6..13];
+  println!("{}", q);
+
+  println!();
+
+
+
 
 }
 
@@ -78,6 +95,17 @@ fn dangle() -> String {
   let s = String::from("dangle");
 
   s
+}
+
+fn first_world(s: &String) -> usize {
+  let bytes = s.as_bytes();
+
+  for (i, &item) in bytes.iter().enumerate() {
+    if item == b' ' {
+      return i;
+    }
+  }
+  s.len()
 }
 
 
